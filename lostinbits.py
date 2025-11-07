@@ -3,7 +3,7 @@ from PPlay import window, sprite, keyboard
 path = "Sprites/"
 window = window.Window(1920, 1080)
 window.set_title("Lost in Bits")
-background = sprite.Sprite(path+"background.png")  
+background = sprite.Sprite(path+"fundo.png")  
 background.set_position(0, 0)
 
 
