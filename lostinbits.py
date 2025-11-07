@@ -1,48 +1,47 @@
-import pygame
 from PPlay import window, sprite, keyboard
 
 path = "Sprites/"
-janela = window.Window(1920, 1080)
-janela.set_title("Lost in Bits")
-fundo = sprite.Sprite(path+"fundo.png")  
-fundo.set_position(0, 0)
+window = window.Window(1920, 1080)
+window.set_title("Lost in Bits")
+background = sprite.Sprite(path+"background.png")  
+background.set_position(0, 0)
 
 
-chaoY = 870  
-personagem = sprite.Sprite(path+"josh.png")
-personagem.set_position((janela.width - personagem.width)/2, chaoY - personagem.height)
+floorY = 870  
+player = sprite.Sprite(path+"josh.png")
+player.set_position((window.width - player.width)/2, floorY - player.height)
 
-teclado = keyboard.Keyboard()
-velX = 300 
-velY = 0
+keyboard = keyboard.Keyboard()
+speedX = 300 
+speedY = 0
 grav = 1200 
-forcaPulo = -400  
+jumpForce = -400  
 onFloor = True
 
 while True:
-    deltaTime = janela.delta_time()
+    deltaTime = window.delta_time()
     
-    if (teclado.key_pressed("a") or teclado.key_pressed("LEFT")) and personagem.x > 0:
-        personagem.x -= velX * deltaTime
-    if (teclado.key_pressed("d") or teclado.key_pressed("RIGHT")) and personagem.x < janela.width - personagem.width:
-        personagem.x += velX * deltaTime
+    if (keyboard.key_pressed("a") or keyboard.key_pressed("LEFT")) and player.x > 0:
+        player.x -= speedX * deltaTime
+    if (keyboard.key_pressed("d") or keyboard.key_pressed("RIGHT")) and player.x < window.width - player.width:
+        player.x += speedX * deltaTime
 
-    if (teclado.key_pressed("w") or teclado.key_pressed("UP")) and onFloor:
-        velY = forcaPulo
+    if (keyboard.key_pressed("w") or keyboard.key_pressed("UP")) and onFloor:
+        speedY = jumpForce
         onFloor = False
     
     if not onFloor:
-        velY += grav * deltaTime
-        personagem.y += velY * deltaTime
-        if personagem.y + personagem.height >= chaoY:
-            personagem.y = chaoY - personagem.height
-            velY = 0
+        speedY += grav * deltaTime
+        player.y += speedY * deltaTime
+        if player.y + player.height >= floorY:
+            player.y = floorY - player.height
+            speedY = 0
             onFloor = True
     
-    if (teclado.key_pressed("s") or teclado.key_pressed("DOWN")) and onFloor:
+    if (keyboard.key_pressed("s") or keyboard.key_pressed("DOWN")) and onFloor:
         pass
     
-    fundo.draw()
-    personagem.draw()
-    janela.draw_text("Fase 1: Plumber Game", janela.width - 350, 20, size=30, color=(0, 0, 0), font_name="Arial", bold=True)
-    janela.update()
+    background.draw()
+    player.draw()
+    window.draw_text("Fase 1: Plumber Game", window.width - 350, 20, size=30, color=(0, 0, 0), font_name="Arial", bold=True)
+    window.update()
