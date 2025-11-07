@@ -1,11 +1,13 @@
 from PPlay import window, sprite, keyboard
+import pygame
 
 path = "assets/"
 window = window.Window(1920, 1080)
-window.set_title("Lost in Bits")
-background = sprite.Sprite(path + "level_1/background.png")  
-background.set_position(0, 0)
 
+pygame.init()
+pygame.display.set_mode((window.width, window.height), pygame.FULLSCREEN)
+
+background = sprite.Sprite(path + "level_1/background.png")  
 
 floorY = 870  
 player = sprite.Sprite(path + "josh.png")
