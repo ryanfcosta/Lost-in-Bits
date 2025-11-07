@@ -1,17 +1,18 @@
 from PPlay import window, sprite, keyboard
 
-path = "Sprites/"
+path = "assets/"
 window = window.Window(1920, 1080)
 window.set_title("Lost in Bits")
-background = sprite.Sprite(path+"fundo.png")  
+background = sprite.Sprite(path + "level_1/background.png")  
 background.set_position(0, 0)
 
 
 floorY = 870  
-player = sprite.Sprite(path+"josh.png")
+player = sprite.Sprite(path + "josh.png")
 player.set_position((window.width - player.width)/2, floorY - player.height)
 
 keyboard = keyboard.Keyboard()
+# keyboard = window.get_keyboard()
 speedX = 300 
 speedY = 0
 grav = 1200 
