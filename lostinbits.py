@@ -1,13 +1,15 @@
 import pygame
 from PPlay import window, sprite, keyboard
 
+path = "Sprites/"
 janela = window.Window(1920, 1080)
 janela.set_title("Lost in Bits")
-fundo = sprite.Sprite("fundo.png")
+fundo = sprite.Sprite(path+"fundo.png")  
 fundo.set_position(0, 0)
 
+
 chaoY = 870  
-personagem = sprite.Sprite("tst.png")
+personagem = sprite.Sprite(path+"josh.png")
 personagem.set_position((janela.width - personagem.width)/2, chaoY - personagem.height)
 
 teclado = keyboard.Keyboard()
@@ -42,4 +44,5 @@ while True:
     
     fundo.draw()
     personagem.draw()
+    janela.draw_text("Fase 1: Plumber Game", janela.width - 350, 20, size=30, color=(0, 0, 0), font_name="Arial", bold=True)
     janela.update()
