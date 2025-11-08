@@ -1,0 +1,61 @@
+from PPlay import window, sprite
+import player
+
+class Game:
+    up_move_key = "W"
+    left_move_key = "A"
+    right_move_key = "D"
+    #speedX = 300 
+    #speedY = 0
+    #grav = 1200 
+    #jumpForce = -400  
+    #onFloor = True
+    
+    gravity = 1.1 # 1200 px em 1080p
+
+    def __init__(self, window):
+        self.window = window
+        self.keyboard = window.get_keyboard()
+        self.current_level = None
+    
+    def setup_level(self):
+        self.current_level.load_level()
+        
+        self.player = player.Player(self.window, self.current_level, self.gravity)
+        self.player.setup_sprite("", "josh_left", "josh_right")
+        
+        #self.player_sprite
+        
+        self.player.sprite.x = 0
+        self.player.sprite.y = self.current_level.floor_y - self.player.sprite.height
+    
+    def get_player_input_direction_x(self, keyboard):
+        if keyboard.key_pressed(self.left_move_key) and not keyboard.key_pressed(self.right_move_key):
+            return -1
+        if keyboard.key_pressed(self.right_move_key) and not keyboard.key_pressed(self.left_move_key):
+            return 1
+        return None
+    
+    def get_player_input_direction_y(self, keyboard):
+        if keyboard.key_pressed(self.up_move_key):
+            return -1
+        return None
+    
+    def game_loop(self):
+        delta_time = self.window.delta_time()
+        
+        player_input_direction_x = self.get_player_input_direction_x(self.keyboard)
+        self.player.set_direction_x(player_input_direction_x)
+        
+        player_input_direction_y = self.get_player_input_direction_y(self.keyboard)
+        self.player.set_direction_y(player_input_direction_y)
+
+        self.player.move(delta_time)
+        
+        #if (self.keyboard.key_pressed("s") or self.keyboard.key_pressed("DOWN")) and self.onFloor:
+        #    pass
+        
+        self.current_level.background.draw()
+        self.player.sprite.draw()
+        self.window.draw_text(self.current_level.level_name, self.window.width - 350, 20, size=30, color=(0, 0, 0), font_name="Arial", bold=True)
+        self.window.update()
