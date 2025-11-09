@@ -7,10 +7,17 @@ window = window.Window(1920, 1080)
 pygame.init()
 pygame.display.set_mode((window.width, window.height), pygame.FULLSCREEN)
 
-game = game_manager.Game(window)
-plumber_level = plumber_level.PlumberLevel(window, "level_1/", "background")
-game.current_level = plumber_level
-game.setup_level()
+# directions
+UP = -1
+LEFT = -1
+RIGHT = 1
+DOWN = 1
 
-while True:
-    game.game_loop()
+if __name__ == "__main__":
+    game = game_manager.Game(window)
+    plumber_level = plumber_level.PlumberLevel(window, "level_1/", "background")
+    game.current_level = plumber_level
+    game.setup_level()
+
+    while True:
+        game.game_loop()

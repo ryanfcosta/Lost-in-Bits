@@ -1,5 +1,6 @@
 from PPlay import window, sprite
 import player
+from main import UP, LEFT, RIGHT, DOWN
 
 class Game:
     up_move_key = "W"
@@ -25,20 +26,20 @@ class Game:
         self.player.setup_sprite("", "josh_left", "josh_right")
         
         #self.player_sprite
-        self.player.direction_x = 1
+        self.player.direction_x = RIGHT
         self.player.sprite.x = 540 #debugging, por padrao 0
         self.player.sprite.y = self.current_level.floor_y - self.player.sprite.height
     
     def get_player_input_direction_x(self, keyboard):
         if keyboard.key_pressed(self.left_move_key) and not keyboard.key_pressed(self.right_move_key):
-            return -1
+            return LEFT
         if keyboard.key_pressed(self.right_move_key) and not keyboard.key_pressed(self.left_move_key):
-            return 1
+            return RIGHT
         return None
     
     def get_player_input_direction_y(self, keyboard):
         if keyboard.key_pressed(self.up_move_key):
-            return -1
+            return LEFT
         return None
     
     def game_loop(self):
