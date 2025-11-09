@@ -14,21 +14,24 @@ class Player(Entity):
     def setup_sprite(self, assets_path, left_sprite_image, right_sprite_image):
         self.left_sprite = sprite.Sprite(f"assets/{assets_path}{left_sprite_image}.png")
         self.right_sprite = sprite.Sprite(f"assets/{assets_path}{right_sprite_image}.png")
-        self.sprite = self.right_sprite
+        if self.direction_x != LEFT:
+            self.sprite = self.right_sprite
+        else:
+            self.sprite = self.left_sprite
 
     
     def set_direction_x(self, direction_x):
         #erro de pulando pro teto ta aqui
-        if direction_x != self.direction_x:
-            if direction_x == RIGHT:
-                self.right_sprite.x = self.left_sprite.x
-                self.right_sprite.y = self.left_sprite.y
-                self.sprite = self.right_sprite
-            elif direction_x == LEFT:
-                self.left_sprite.x = self.right_sprite.x
-                self.left_sprite.y = self.right_sprite.y
-                self.sprite = self.left_sprite
-            self.direction_x = direction_x
+        self.direction_x = direction_x
+        if direction_x is None or (self.sprite == self.left_sprite and direction_x == LEFT) or (self.sprite == self.right_sprite and direction_x == RIGHT):
+            return
+        if direction_x == LEFT:
+            new_sprite = self.left_sprite
+        else:
+            new_sprite = self.right_sprite
+        new_sprite.x = self.sprite.x
+        new_sprite.y = self.sprite.y
+        self.sprite = new_sprite
     
     def set_direction_y(self, direction_y):
         if direction_y != self.direction_y:
@@ -52,5 +55,5 @@ class Player(Entity):
             self.velocity_y += self.gravity * delta_time
             self.sprite.y += self.velocity_y * delta_time * self.window.height
             if self.is_on_vertical_limit(DOWN):
-                self.sprite.y = self.level.floor_y - self.sprite.height
+                self.sprite.y = self.level.floor_y - self.sprite.height * self.window.height
                 self.velocity_y = 0

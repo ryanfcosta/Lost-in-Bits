@@ -25,8 +25,6 @@ class Game:
         self.player = player.Player(self.window, self.current_level, self.gravity)
         self.player.setup_sprite("", "josh_left", "josh_right")
         
-        #self.player_sprite
-        self.player.direction_x = RIGHT
         self.player.sprite.x = 540 #debugging, por padrao 0
         self.player.sprite.y = self.current_level.floor_y - self.player.sprite.height
     
@@ -39,7 +37,7 @@ class Game:
     
     def get_player_input_direction_y(self, keyboard):
         if keyboard.key_pressed(self.up_move_key):
-            return LEFT
+            return UP
         return None
     
     def game_loop(self):
