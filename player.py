@@ -17,6 +17,7 @@ class Player(Entity):
         self.sprite = self.right_sprite
     
     def set_direction_x(self, direction_x):
+        #erro de pulando pro teto ta aqui
         if direction_x != self.direction_x:
             if direction_x == 1:
                 self.right_sprite.x = self.left_sprite.x
@@ -42,9 +43,11 @@ class Player(Entity):
         #self.is_on_horizontal_limit(self.direction_x)
         
         if self.is_on_vertical_limit(1):
+            print("on floor")
             if self.direction_y == -1:
-                self.velocity_y = -self.jump_start_vel
+               self.velocity_y = -self.jump_start_vel
         else:
+            print("not on floor")
             self.velocity_y += self.gravity * delta_time
             self.sprite.y += self.velocity_y * delta_time
             if self.is_on_vertical_limit(1):

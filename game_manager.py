@@ -11,7 +11,7 @@ class Game:
     #jumpForce = -400  
     #onFloor = True
     
-    gravity = 1.1 # 1200 px em 1080p
+    gravity = 12.9 # 1200 px em 1080p
 
     def __init__(self, window):
         self.window = window
@@ -25,8 +25,8 @@ class Game:
         self.player.setup_sprite("", "josh_left", "josh_right")
         
         #self.player_sprite
-        
-        self.player.sprite.x = 0
+        self.player.direction_x = 1
+        self.player.sprite.x = 540 #debugging, por padrao 0
         self.player.sprite.y = self.current_level.floor_y - self.player.sprite.height
     
     def get_player_input_direction_x(self, keyboard):
