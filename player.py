@@ -3,7 +3,7 @@ from entity import Entity
 
 class Player(Entity):
     walking_vel_x = 0.3 # ~320 px em 1080p
-    jump_start_vel = 0.37 # 400 px em 1080p
+    jump_start_vel = 0.37  # 400 px em 1080p
     is_jumping = False
     
     def __init__(self, window, level, gravity):
@@ -15,6 +15,7 @@ class Player(Entity):
         self.left_sprite = sprite.Sprite(f"assets/{assets_path}{left_sprite_image}.png")
         self.right_sprite = sprite.Sprite(f"assets/{assets_path}{right_sprite_image}.png")
         self.sprite = self.right_sprite
+
     
     def set_direction_x(self, direction_x):
         #erro de pulando pro teto ta aqui
