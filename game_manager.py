@@ -6,13 +6,8 @@ class Game:
     up_move_key = "W"
     left_move_key = "A"
     right_move_key = "D"
-    #speedX = 300 
-    #speedY = 0
-    #grav = 1200 
-    #jumpForce = -400  
-    #onFloor = True
     
-    gravity = 12.9 # 1200 px em 1080p
+    gravity = 1.5
 
     def __init__(self, window):
         self.window = window
@@ -50,9 +45,6 @@ class Game:
         self.player.set_direction_y(player_input_direction_y)
 
         self.player.move(delta_time)
-        
-        #if (self.keyboard.key_pressed("s") or self.keyboard.key_pressed("DOWN")) and self.onFloor:
-        #    pass
         
         self.current_level.background.draw()
         self.player.sprite.draw()

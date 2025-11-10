@@ -1,4 +1,5 @@
 from PPlay import sprite
+from main import UP, LEFT, RIGHT, DOWN
 
 class Entity:
     velocity_x = 0
@@ -15,20 +16,20 @@ class Entity:
     def setup_sprite(self, assets_path, sprite_image):
         self.sprite = sprite.Sprite(f"assets/{assets_path}{sprite_image}.png")
     
-    def move(self):
+    def move(self, delta_time):
         pass
     
     def is_on_horizontal_limit(self, direction):
-        if direction == -1:
+        if direction == LEFT:
             return self.sprite.x <= 0
-        elif direction == 1:
+        elif direction == RIGHT:
             return (self.sprite.x + self.sprite.width) >= self.window.width
         return None
     
     def is_on_vertical_limit(self, direction):
-        if direction == -1:
+        if direction == UP:
             return self.sprite.y <= 0
-        elif direction == 1:
+        elif direction == DOWN:
             return (self.sprite.y + self.sprite.height) >= self.level.floor_y
         return None
     
