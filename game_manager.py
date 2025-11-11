@@ -53,7 +53,12 @@ class Game:
                 npc.sprite.draw()
                 npc.sprite.x -= self.level.background.x
         
+        #jogar essa parte pra outro canto, pq nem td fase tem o mesmo num de plataformas
+        #criar array de plataformas em plumber level.py e dar draw aqui usando for (iterando a array)
+        for platform in self.level.platforms:
+            platform.draw()
+        
         self.window.draw_text(self.level.level_name, self.window.width - 350, 20, size=30, color=(0, 0, 0), font_name="Arial", bold=True)
-        self.window.update()
 
         self.level.handle_player_collisions()
+        self.window.update()
