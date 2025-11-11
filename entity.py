@@ -10,7 +10,7 @@ class Entity:
         self.direction_x = None
         self.direction_y = None
         self.x_left_limit = 0
-        self.x_right_limit = self.window.width
+        self.x_right_limit = 1
     
     def setup_sprite(self, assets_path, sprite_image):
         self.sprite = sprite.Sprite(f"assets/{assets_path}{sprite_image}.png")
@@ -20,9 +20,9 @@ class Entity:
     
     def is_on_horizontal_limit(self, direction):
         if direction == LEFT:
-            return self.sprite.x <= self.x_left_limit
+            return self.sprite.x <= (self.x_left_limit * self.window.width)
         elif direction == RIGHT:
-            return (self.sprite.x + self.sprite.width) >= self.x_right_limit
+            return (self.sprite.x + self.sprite.width) >= (self.x_right_limit * self.window.width)
         return None
     
     def is_on_vertical_limit(self, direction):
