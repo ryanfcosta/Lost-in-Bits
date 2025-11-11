@@ -16,10 +16,10 @@ class Game:
     
     def setup_level(self):
         self.current_level.load_level()
-        
+
         self.player = player.Player(self.window, self.current_level, self.gravity)
         self.player.setup_sprite("", "josh_left", "josh_right")
-        
+
         self.player.sprite.x = self.window.width / 10
         self.player.sprite.y = self.current_level.floor_y - self.player.sprite.height
     
@@ -47,6 +47,12 @@ class Game:
         self.player.move(delta_time)
         
         self.current_level.background.draw()
+
+        #jogar essa parte pra outro canto, pq nem td fase tem o mesmo num de plataformas
+        #criar array de plataformas em plumber level.py e dar draw aqui usando for (iterando a array)
+        for platform in self.current_level.platforms:
+            platform.draw()
+
         self.player.sprite.draw()
         self.window.draw_text(self.current_level.level_name, self.window.width - 350, 20, size=30, color=(0, 0, 0), font_name="Arial", bold=True)
         self.window.update()
