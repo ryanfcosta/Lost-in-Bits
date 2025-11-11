@@ -1,11 +1,7 @@
 from PPlay import window
-import pygame
-import game_manager, plumber_level
+import game_manager, plumber_level, scaled_window
 
-window = window.Window(1920, 1080)
-
-pygame.init()
-pygame.display.set_mode((window.width, window.height), pygame.FULLSCREEN)
+window = scaled_window.ScaledWindow(1920, 1080)
 
 # directions
 UP = -1
