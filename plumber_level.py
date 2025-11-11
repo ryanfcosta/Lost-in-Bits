@@ -17,9 +17,11 @@ class PlumberLevel(AbstractLevel):
     def load_level(self):
         super().load_level()
         goomba_1 = Goomba(self.window, self, self.assets_path, "goomba", left_limit=0.6, right_limit=0.8, pos_x=0.7)
+        goomba_2 = Goomba(self.window, self, self.assets_path, "goomba", left_limit=0.9, right_limit=1, pos_x=0.95)
 
         print(goomba_1.sprite.x, goomba_1.sprite.y)
         self.npcs.append(goomba_1)
+        self.npcs.append(goomba_2)
 
         self.door = sprite.Sprite("assets/level_1/door.png")
         self.door.x = 5610
@@ -163,7 +165,7 @@ class PlumberLevel(AbstractLevel):
                         self.game.level = PlumberLevel.create_level_instance(self.game, self.assets_path, self.background_image)
                         self.game.setup_level()
         
-        if self.player.sprite.collided(self.door):
+        if (self.player.sprite.x > self.door.x) and ((self.player.sprite.x + self.player.sprite.width) > (self.door.x + self.door.width)) and (self.player.sprite.y > self.door.y):
             pygame.quit()
             exit()
     
