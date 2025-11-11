@@ -2,7 +2,7 @@ from entity import Entity
 from constants import UP, LEFT, RIGHT, DOWN
 
 class Goomba(Entity):
-    walking_vel_x = 1
+    walking_vel_x = 0.05
 
     def __init__(self, window, level, assets_path, sprite_image, left_limit, right_limit, pos_x):
         super().__init__(window, level)
