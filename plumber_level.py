@@ -5,8 +5,8 @@ class PlumberLevel(AbstractLevel):
     floor_relative_height = 0.8
     level_name = "Plumber Level"
     
-    def __init__(self, window, assets_path, background_image):
-        super().__init__(window, assets_path, background_image, PlumberLevel.floor_relative_height)
+    def __init__(self, game, assets_path, background_image):
+        super().__init__(game, assets_path, background_image, PlumberLevel.floor_relative_height)
     
     def load_level(self):
         super().load_level()
@@ -32,4 +32,8 @@ class PlumberLevel(AbstractLevel):
                     if player_is_stomping_goomba:
                         npc.alive = False
                     elif (player_bottom_y > goomba_top_y) and (player_top_y < goomba_bottom_y) and npc.alive:
-                        print("player morre")
+                        self.game.level = PlumberLevel.create_level_instance(self.game, self.assets_path, self.background_image)
+                        self.game.setup_level()
+    
+    def create_level_instance(game, assets_path, background_image):
+        return PlumberLevel(game, assets_path, background_image)

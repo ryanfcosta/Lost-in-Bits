@@ -5,7 +5,7 @@ window = scaled_window.ScaledWindow(1920, 1080)
 
 if __name__ == "__main__":
     game = game_manager.Game(window)
-    plumber_level = plumber_level.PlumberLevel(window, "level_1/", "background")
+    plumber_level = plumber_level.PlumberLevel.create_level_instance(game, "level_1/", "background")
     game.level = plumber_level
     game.setup_level()
 
