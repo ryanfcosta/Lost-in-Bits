@@ -20,7 +20,7 @@ class Game:
         self.player = player.Player(self.window, self.current_level, self.gravity)
         self.player.setup_sprite("", "josh_left", "josh_right")
         
-        self.player.sprite.x = 540 #debugging, por padrao 0
+        self.player.sprite.x = self.window.width / 10
         self.player.sprite.y = self.current_level.floor_y - self.player.sprite.height
     
     def get_player_input_direction_x(self, keyboard):

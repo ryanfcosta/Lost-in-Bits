@@ -38,11 +38,11 @@ class Player(Entity):
             self.direction_y = direction_y
     
     def move(self, delta_time):
-        if self.direction_x is not None:
+        if (self.direction_x == LEFT and not self.is_on_horizontal_limit(LEFT)) or (self.direction_x == RIGHT and not self.is_on_horizontal_limit(RIGHT)):
             self.velocity_x = self.direction_x * self.walking_vel_x
         else:
             self.velocity_x = 0
-        self.sprite.x += self.velocity_x * self.window.width * delta_time
+        self.move_x(self.velocity_x * self.window.width * delta_time)
         
         if self.is_on_vertical_limit(DOWN):
             if self.direction_y == UP:
@@ -55,3 +55,20 @@ class Player(Entity):
             if self.direction_y == DOWN:  
                 self.velocity_y += self.gravity * self.direction_y * delta_time
         self.sprite.y += self.velocity_y * self.window.height * delta_time
+
+    def move_x(self, x_change):
+        background = self.level.background
+        if x_change > 0: # indo pra direita
+            player_on_left_half = (self.sprite.x - (self.sprite.width / 2)) <= (self.window.width / 2)
+            background_right_limit_reached = (background.x + background.width) <= self.window.width
+            if player_on_left_half or background_right_limit_reached:
+                self.sprite.x += x_change
+            else:
+                background.x -= x_change
+        else: # indo pra esquerda
+            player_on_right_half = (self.sprite.x + (self.sprite.width / 2)) >= (self.window.width / 2)
+            background_left_limit_reached = background.x >= 0
+            if player_on_right_half or background_left_limit_reached:
+                self.sprite.x += x_change
+            else:
+                background.x -= x_change
