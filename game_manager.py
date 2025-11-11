@@ -1,13 +1,13 @@
 from PPlay import window, sprite
 import player
-from main import UP, LEFT, RIGHT, DOWN
+from constants import UP, LEFT, RIGHT, DOWN, GRAVITY
 
 class Game:
     up_move_key = "W"
     left_move_key = "A"
     right_move_key = "D"
     
-    gravity = 1.5
+    #gravity = 1.5
 
     def __init__(self, window):
         self.window = window
@@ -17,8 +17,7 @@ class Game:
     def setup_level(self):
         self.current_level.load_level()
         
-        self.player = player.Player(self.window, self.current_level, self.gravity)
-        self.player.setup_sprite("", "josh_left", "josh_right")
+        self.player = player.Player(self.window, self.current_level, "", "josh_left", "josh_right")
         
         self.player.sprite.x = self.window.width / 10
         self.player.sprite.y = self.current_level.floor_y - self.player.sprite.height
@@ -48,5 +47,9 @@ class Game:
         
         self.current_level.background.draw()
         self.player.sprite.draw()
+        for npc in self.current_level.npcs:
+            npc.move(delta_time)
+            print(f"desenhando goomba em {npc.sprite.x} {npc.sprite.y}")
+            npc.sprite.draw()
         self.window.draw_text(self.current_level.level_name, self.window.width - 350, 20, size=30, color=(0, 0, 0), font_name="Arial", bold=True)
         self.window.update()

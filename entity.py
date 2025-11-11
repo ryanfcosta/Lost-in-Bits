@@ -1,17 +1,16 @@
 from PPlay import sprite
-from main import UP, LEFT, RIGHT, DOWN
+from constants import UP, LEFT, RIGHT, DOWN
 
-class Entity:
-    velocity_x = 0
-    velocity_y = 0
-    jump_force = 0
-    direction_x = None
-    direction_y = None
-    
-    def __init__(self, window, level, gravity):
+class Entity:    
+    def __init__(self, window, level):
         self.window = window
         self.level = level
-        self.gravity = gravity
+        self.velocity_x = None
+        self.velocity_y = None
+        self.direction_x = None
+        self.direction_y = None
+        self.x_left_limit = 0
+        self.x_right_limit = self.window.width
     
     def setup_sprite(self, assets_path, sprite_image):
         self.sprite = sprite.Sprite(f"assets/{assets_path}{sprite_image}.png")
@@ -21,9 +20,9 @@ class Entity:
     
     def is_on_horizontal_limit(self, direction):
         if direction == LEFT:
-            return self.sprite.x <= 0
+            return self.sprite.x <= self.x_left_limit
         elif direction == RIGHT:
-            return (self.sprite.x + self.sprite.width) >= self.window.width
+            return (self.sprite.x + self.sprite.width) >= self.x_right_limit
         return None
     
     def is_on_vertical_limit(self, direction):

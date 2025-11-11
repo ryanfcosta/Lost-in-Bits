@@ -8,4 +8,4 @@ class AbstractLevel:
         self.floor_y = window.height * floor_relative_height
     
     def load_level(self):
-        self.background.draw()
+        self.npcs = []

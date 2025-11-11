@@ -1,14 +1,15 @@
 from PPlay import sprite
 from entity import Entity
-from main import UP, LEFT, RIGHT, DOWN
+from constants import UP, LEFT, RIGHT, DOWN, GRAVITY
 
 class Player(Entity):
     walking_vel_x = 0.2
     jump_start_vel = 0.6
     
-    def __init__(self, window, level, gravity):
-        super().__init__(window, level, gravity)
+    def __init__(self, window, level, assets_path, left_sprite_image, right_sprite_image):
+        super().__init__(window, level)
         self.velocity_x = self.walking_vel_x
+        self.setup_sprite(assets_path, left_sprite_image, right_sprite_image)
     
     def setup_sprite(self, assets_path, left_sprite_image, right_sprite_image):
         self.left_sprite = sprite.Sprite(f"assets/{assets_path}{left_sprite_image}.png")
@@ -53,7 +54,7 @@ class Player(Entity):
                 self.velocity_y = 0
         else: # tá no ar
             if self.direction_y == DOWN:  
-                self.velocity_y += self.gravity * self.direction_y * delta_time
+                self.velocity_y += GRAVITY * self.direction_y * delta_time
         self.sprite.y += self.velocity_y * self.window.height * delta_time
 
     def move_x(self, x_change):
