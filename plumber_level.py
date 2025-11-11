@@ -14,58 +14,118 @@ class PlumberLevel(AbstractLevel):
 
         self.platforms = []
 
-        platform_1 = game_platform.Platform(self.window, self)
-        platform_1.set_platform(700,740,3, self.level_path, self.sprite_name)
-        self.platforms.append(platform_1)
-       
-        platform_2 = game_platform.Platform(self.window, self)
-        platform_2.set_platform(1000, 630, 8, self.level_path, self.sprite_name)
-        self.platforms.append(platform_2)
+        h_stair = 804 
+        h_pipe = 744 
+        h_high = 750
 
-        platform_3 = game_platform.Platform(self.window, self)
-        platform_3.set_platform(1400, 570, 2, self.level_path, self.sprite_name)
-        self.platforms.append(platform_3)
+        plataforma_1 = game_platform.Platform(self.window, self)
+        plataforma_1.set_platform(800, h_high, 1, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_1)
+        
+        plataforma_2 = game_platform.Platform(self.window, self)
+        plataforma_2.set_platform(920, h_high, 3, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_2)
 
-        platform_4 = game_platform.Platform(self.window, self)
-        platform_4.set_platform(1600, 720, 4, self.level_path, self.sprite_name)
-        self.platforms.append(platform_4)
+        plataforma_3 = game_platform.Platform(self.window, self)
+        plataforma_3.set_platform(1220, h_high, 1, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_3)
 
-        platform_5 = game_platform.Platform(self.window, self)
-        platform_5.set_platform(2000, 715, 10, self.level_path, self.sprite_name)
-        self.platforms.append(platform_5)
+        plataforma_4 = game_platform.Platform(self.window, self)
+        plataforma_4.set_platform(1040, 650, 1, self.level_path, self.sprite_name) # Bloco 'escondido'
+        self.platforms.append(plataforma_4)
 
-        platform_6 = game_platform.Platform(self.window, self)
-        platform_6.set_platform(2800, 680, 2, self.level_path, self.sprite_name)
-        self.platforms.append(platform_6)
+        plataforma_5 = game_platform.Platform(self.window, self)
+        plataforma_5.set_platform(1600, h_pipe, 2, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_5)
 
-        platform_7 = game_platform.Platform(self.window, self)
-        platform_7.set_platform(3000, 630, 2, self.level_path, self.sprite_name)
-        self.platforms.append(platform_7)
+        plataforma_6 = game_platform.Platform(self.window, self)
+        plataforma_6.set_platform(1840, h_pipe, 3, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_6)
 
-        platform_8 = game_platform.Platform(self.window, self)
-        platform_8.set_platform(3300, 550, 6, self.level_path, self.sprite_name)
-        self.platforms.append(platform_8)
+        plataforma_7 = game_platform.Platform(self.window, self)
+        plataforma_7.set_platform(2200, h_pipe, 2, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_7)
 
-        platform_9 = game_platform.Platform(self.window, self)
-        platform_9.set_platform(3800, 700, 12, self.level_path, self.sprite_name)
-        self.platforms.append(platform_9)
+        plataforma_8 = game_platform.Platform(self.window, self)
+        plataforma_8.set_platform(2600, h_stair, 4, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_8)
 
-        platform_10 = game_platform.Platform(self.window, self)
-        platform_10.set_platform(4500, 670, 1, self.level_path, self.sprite_name)
-        self.platforms.append(platform_10)
+        plataforma_9 = game_platform.Platform(self.window, self)
+        plataforma_9.set_platform(2660, 744, 3, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_9)
 
-        platform_11 = game_platform.Platform(self.window, self)
-        platform_11.set_platform(4650, 668, 1, self.level_path, self.sprite_name)
-        self.platforms.append(platform_11)
+        plataforma_10 = game_platform.Platform(self.window, self)
+        plataforma_10.set_platform(2720, 684, 2, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_10)
 
-        platform_12 = game_platform.Platform(self.window, self)
-        platform_12.set_platform(4800, 665, 1, self.level_path, self.sprite_name)
-        self.platforms.append(platform_12)
+        plataforma_11 = game_platform.Platform(self.window, self)
+        plataforma_11.set_platform(2780, 624, 1, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_11)
 
-        platform_13 = game_platform.Platform(self.window, self)
-        platform_13.set_platform(5000, 660, 7, self.level_path, self.sprite_name)
-        self.platforms.append(platform_13)
+        plataforma_12 = game_platform.Platform(self.window, self)
+        plataforma_12.set_platform(3060, 624, 1, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_12)
 
-        platform_14 = game_platform.Platform(self.window, self)
-        platform_14.set_platform(5400, 740, 4, self.level_path, self.sprite_name)
-        self.platforms.append(platform_14)
+        plataforma_13 = game_platform.Platform(self.window, self)
+        plataforma_13.set_platform(3120, 684, 2, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_13)
+        
+        plataforma_14 = game_platform.Platform(self.window, self)
+        plataforma_14.set_platform(3180, 744, 3, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_14)
+
+        plataforma_15 = game_platform.Platform(self.window, self)
+        plataforma_15.set_platform(3600, h_pipe, 3, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_15)
+
+        plataforma_16 = game_platform.Platform(self.window, self)
+        plataforma_16.set_platform(3900, h_pipe, 1, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_16)
+
+        plataforma_17 = game_platform.Platform(self.window, self)
+        plataforma_17.set_platform(4140, h_pipe, 1, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_17)
+        
+        plataforma_18 = game_platform.Platform(self.window, self)
+        plataforma_18.set_platform(4380, h_pipe, 2, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_18)
+
+        plataforma_19 = game_platform.Platform(self.window, self)
+        plataforma_19.set_platform(4700, h_pipe, 2, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_19)
+        
+        plataforma_20 = game_platform.Platform(self.window, self)
+        plataforma_20.set_platform(4900, h_stair, 8, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_20)
+
+        plataforma_21 = game_platform.Platform(self.window, self)
+        plataforma_21.set_platform(4960, 744, 7, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_21)
+
+        plataforma_22 = game_platform.Platform(self.window, self)
+        plataforma_22.set_platform(5020, 684, 6, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_22)
+
+        plataforma_23 = game_platform.Platform(self.window, self)
+        plataforma_23.set_platform(5080, 624, 5, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_23)
+
+        plataforma_24 = game_platform.Platform(self.window, self)
+        plataforma_24.set_platform(5140, 564, 4, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_24)
+
+        plataforma_25 = game_platform.Platform(self.window, self)
+        plataforma_25.set_platform(5200, 504, 3, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_25)
+
+        plataforma_26 = game_platform.Platform(self.window, self)
+        plataforma_26.set_platform(5260, 444, 2, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_26)
+
+        plataforma_27 = game_platform.Platform(self.window, self)
+        plataforma_27.set_platform(5320, 384, 1, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_27)
+        
+        plataforma_28 = game_platform.Platform(self.window, self)
+        plataforma_28.set_platform(5440, h_stair, 1, self.level_path, self.sprite_name)
+        self.platforms.append(plataforma_28)
