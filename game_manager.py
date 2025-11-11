@@ -56,6 +56,8 @@ class Game:
         for platform in self.level.platforms:
             platform.draw()
         
+        self.level.door.draw()
+        
         self.window.draw_text(self.level.level_name, self.window.width - 350, 20, size=30, color=(0, 0, 0), font_name="Arial", bold=True)
 
         self.level.handle_player_collisions()

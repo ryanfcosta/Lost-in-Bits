@@ -106,7 +106,7 @@ class Player(Entity):
                 self.sprite.x -= x_change
                 for platform in self.level.platforms: #anda c x de cada plat
                     platform.move_x(-x_change) 
-
+                self.level.door.x += (-x_change)  
         elif x_change < 0:
             player_on_right_half = (self.sprite.x + (self.sprite.width / 2)) >= (self.window.width / 2)
             background_left_limit_reached = background.x >= 0
@@ -118,3 +118,4 @@ class Player(Entity):
                 self.sprite.x -= x_change
                 for platform in self.level.platforms: #anda c x de cada plat
                     platform.move_x(-x_change)
+                self.level.door.x += (-x_change)

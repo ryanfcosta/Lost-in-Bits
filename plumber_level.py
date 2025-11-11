@@ -1,6 +1,8 @@
 from abstract_level import AbstractLevel
 from goomba import Goomba
 import game_platform
+from PPlay import sprite
+import pygame
 
 class PlumberLevel(AbstractLevel):
     floor_relative_height = 0.8
@@ -18,6 +20,10 @@ class PlumberLevel(AbstractLevel):
 
         print(goomba_1.sprite.x, goomba_1.sprite.y)
         self.npcs.append(goomba_1)
+
+        self.door = sprite.Sprite("assets/level_1/door.png")
+        self.door.x = 5610
+        self.door.y = self.floor_y - self.door.height
 
         self.platforms = []
 
@@ -156,6 +162,10 @@ class PlumberLevel(AbstractLevel):
                     elif (player_bottom_y > goomba_top_y) and (player_top_y < goomba_bottom_y) and npc.alive:
                         self.game.level = PlumberLevel.create_level_instance(self.game, self.assets_path, self.background_image)
                         self.game.setup_level()
+        
+        if self.player.sprite.collided(self.door):
+            pygame.quit()
+            exit()
     
     def create_level_instance(game, assets_path, background_image):
         return PlumberLevel(game, assets_path, background_image)
