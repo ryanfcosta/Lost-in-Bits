@@ -15,57 +15,57 @@ class PlumberLevel(AbstractLevel):
         self.platforms = []
 
         platform_1 = game_platform.Platform(self.window, self)
-        platform_1.set_platform(700,740,3,"level_1/", "floor_brick")
+        platform_1.set_platform(700,740,3, self.level_path, self.sprite_name)
         self.platforms.append(platform_1)
        
         platform_2 = game_platform.Platform(self.window, self)
-        platform_2.set_platform(1000, 630, 8, "level_1/", "floor_brick")
+        platform_2.set_platform(1000, 630, 8, self.level_path, self.sprite_name)
         self.platforms.append(platform_2)
 
         platform_3 = game_platform.Platform(self.window, self)
-        platform_3.set_platform(1400, 570, 2, "level_1/", "floor_brick")
+        platform_3.set_platform(1400, 570, 2, self.level_path, self.sprite_name)
         self.platforms.append(platform_3)
 
         platform_4 = game_platform.Platform(self.window, self)
-        platform_4.set_platform(1600, 720, 4, "level_1/", "floor_brick")
+        platform_4.set_platform(1600, 720, 4, self.level_path, self.sprite_name)
         self.platforms.append(platform_4)
 
         platform_5 = game_platform.Platform(self.window, self)
-        platform_5.set_platform(2000, 715, 10, "level_1/", "floor_brick")
+        platform_5.set_platform(2000, 715, 10, self.level_path, self.sprite_name)
         self.platforms.append(platform_5)
 
         platform_6 = game_platform.Platform(self.window, self)
-        platform_6.set_platform(2800, 680, 2, "level_1/", "floor_brick")
+        platform_6.set_platform(2800, 680, 2, self.level_path, self.sprite_name)
         self.platforms.append(platform_6)
 
         platform_7 = game_platform.Platform(self.window, self)
-        platform_7.set_platform(3000, 630, 2, "level_1/", "floor_brick")
+        platform_7.set_platform(3000, 630, 2, self.level_path, self.sprite_name)
         self.platforms.append(platform_7)
 
         platform_8 = game_platform.Platform(self.window, self)
-        platform_8.set_platform(3300, 550, 6, "level_1/", "floor_brick")
+        platform_8.set_platform(3300, 550, 6, self.level_path, self.sprite_name)
         self.platforms.append(platform_8)
 
         platform_9 = game_platform.Platform(self.window, self)
-        platform_9.set_platform(3800, 700, 12, "level_1/", "floor_brick")
+        platform_9.set_platform(3800, 700, 12, self.level_path, self.sprite_name)
         self.platforms.append(platform_9)
 
         platform_10 = game_platform.Platform(self.window, self)
-        platform_10.set_platform(4500, 670, 1, "level_1/", "floor_brick")
+        platform_10.set_platform(4500, 670, 1, self.level_path, self.sprite_name)
         self.platforms.append(platform_10)
 
         platform_11 = game_platform.Platform(self.window, self)
-        platform_11.set_platform(4650, 668, 1, "level_1/", "floor_brick")
+        platform_11.set_platform(4650, 668, 1, self.level_path, self.sprite_name)
         self.platforms.append(platform_11)
 
         platform_12 = game_platform.Platform(self.window, self)
-        platform_12.set_platform(4800, 665, 1, "level_1/", "floor_brick")
+        platform_12.set_platform(4800, 665, 1, self.level_path, self.sprite_name)
         self.platforms.append(platform_12)
 
         platform_13 = game_platform.Platform(self.window, self)
-        platform_13.set_platform(5000, 660, 7, "level_1/", "floor_brick")
+        platform_13.set_platform(5000, 660, 7, self.level_path, self.sprite_name)
         self.platforms.append(platform_13)
 
         platform_14 = game_platform.Platform(self.window, self)
-        platform_14.set_platform(5400, 740, 4, "level_1/", "floor_brick")
+        platform_14.set_platform(5400, 740, 4, self.level_path, self.sprite_name)
         self.platforms.append(platform_14)
