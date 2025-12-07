@@ -177,14 +177,13 @@ class PlumberLevel(AbstractLevel):
             pygame.quit()
             exit()
     
-            elif isinstance(npc, Bullet):
-                is_touching_x_left = player_max_x == npc_max_x or player_max_x == npc_min_x
-                is_touching_x_right = player_min_x == npc_max_x or player_min_x == npc_min_x
-                is_touching_y_top = player_top_y == npc_top_y or player_top_y == npc_bottom_y
-                is_touching_y_bottom = player_bottom_y == npc_top_y or player_bottom_y == npc_bottom_y
-
-                if ((is_touching_x_left or is_touching_x_right) and (is_touching_y_top or is_touching_y_bottom)):
-                    npc.alive = False #nao ta funcionando ainda rs
+        elif isinstance(npc, Bullet):
+            is_touching_x_left = player_max_x == npc_max_x or player_max_x == npc_min_x
+            is_touching_x_right = player_min_x == npc_max_x or player_min_x == npc_min_x
+            is_touching_y_top = player_top_y == npc_top_y or player_top_y == npc_bottom_y
+            is_touching_y_bottom = player_bottom_y == npc_top_y or player_bottom_y == npc_bottom_y
+            if ((is_touching_x_left or is_touching_x_right) and (is_touching_y_top or is_touching_y_bottom)):
+                npc.alive = False #nao ta funcionando ainda rs
 
                 
     def create_level_instance(game, assets_path, background_image):
