@@ -1,8 +1,10 @@
 from PPlay import window, sprite
 import player
 from constants import UP, LEFT, RIGHT, DOWN, GRAVITY
+import main_menu
 
 class Game:
+    menu = "main_menu"
     up_move_key = "W"
     left_move_key = "A"
     right_move_key = "D"
@@ -11,6 +13,7 @@ class Game:
         self.window = window
         self.keyboard = window.get_keyboard()
         self.level = None
+        self.main_menu = main_menu.MainMenu(window, "menu/", self)
     
     def setup_level(self):
         self.level.load_level()
@@ -33,6 +36,14 @@ class Game:
         return None
     
     def game_loop(self):
+        if self.menu == "main_menu":
+            self.main_menu.load_menu()
+        elif self.menu == "game":
+            self.level_loop()
+        
+        self.window.update()
+    
+    def level_loop(self):
         delta_time = self.window.delta_time()
         
         player_input_direction_x = self.get_player_input_direction_x(self.keyboard)
@@ -54,6 +65,8 @@ class Game:
                 npc.sprite.x -= self.level.background.x
         
         self.window.draw_text(self.level.level_name, self.window.width - 350, 20, size=30, color=(0, 0, 0), font_name="Arial", bold=True)
-        self.window.update()
-
         self.level.handle_player_collisions()
+    
+    # yet to be done
+    def has_game_saved(self):
+        return False
