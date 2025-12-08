@@ -21,6 +21,7 @@ class PacmanLevel(AbstractLevel):
     sprite_name = "floor_brick"
     
     def __init__(self, game, assets_path, background_image):
+        self.states = []
         self.game = game
         self.window = game.window
         self.assets_path = assets_path

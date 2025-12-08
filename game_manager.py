@@ -1,6 +1,6 @@
 from PPlay import window, sprite
 import player
-from constants import UP, LEFT, RIGHT, DOWN, GRAVITY, STATES_PER_SECOND, REWIND_DURATION_SECS
+from constants import UP, LEFT, RIGHT, DOWN, GRAVITY, STATES_PER_SECOND, REWIND_DURATION_SECS, FREEZE_DURATION_SECS
 import main_menu, characters_menu
 
 TIME_PER_SAVE = 1.0 / STATES_PER_SECOND
@@ -24,11 +24,16 @@ class Game:
         self.mouse_previous_state = None
         
         self.collected_cartridges = 0
+        self.collected_coolers = 0
         
         self.is_rewinding = False
         self.current_rewind_states = 0
         self.save_state_counter = 0.0
         self.rewind_state_counter = 0.0
+
+        self.is_freezing = False
+        self.freeze_state_counter = 0.0
+        self.freezing_effect = sprite.Sprite("assets/freezing_effect.png")
     
     def reload_player(self):
         self.level.player.setup_sprite("", f"{self.char_name}_left", f"{self.char_name}_right")
@@ -87,6 +92,9 @@ class Game:
         self.level.door.draw()
         self.window.draw_text(self.level.level_name, self.window.width - 350, 20, size=30, color=(0, 0, 0), font_name="Arial", bold=True)
 
+        if self.is_freezing:
+            self.freezing_effect.draw()
+            self.freezing_step(delta_time)
         
         if self.is_rewinding:
             self.rewind_step(delta_time)
@@ -94,10 +102,14 @@ class Game:
 
         if self.keyboard.key_pressed("L"):
             self.collected_cartridges += 1
-            print(self.collected_cartridges)
+            self.collected_coolers += 1
+            print(f"cart: {self.collected_cartridges}; cool: {self.collected_coolers}")
         
-        if self.keyboard.key_pressed("X") and self.collected_cartridges >= 4:
+        if self.keyboard.key_pressed("X") and self.collected_cartridges >= 4 and not self.is_freezing:
             self.start_rewind_ability()
+        
+        if self.keyboard.key_pressed("C") and self.collected_coolers >= 4 and not self.is_rewinding:
+            self.start_freezing_ability()
         
         self.save_states(delta_time)
         
@@ -107,22 +119,35 @@ class Game:
         self.level.player.set_direction_y(player_input_direction_y)
         
         self.level.player.move(delta_time)
-        for npc in self.level.npcs:
-            if npc.alive:
-                npc.move(delta_time)
-        
-        self.level.handle_player_collisions()
+        if not self.is_freezing:
+            for npc in self.level.npcs:
+                if npc.alive:
+                    npc.move(delta_time) 
+            self.level.handle_player_collisions()
     
     def save_states(self, delta_time):
         self.save_state_counter += delta_time
 
         if self.save_state_counter >= TIME_PER_SAVE:
             while self.save_state_counter >= TIME_PER_SAVE:
+                self.level.save_state(self.level.background.x)
                 self.level.player.save_state()
                 for npc in self.level.npcs:
                     npc.save_state()
+                for platform in self.level.platforms:
+                    platform.save_state()
                 
                 self.save_state_counter -= TIME_PER_SAVE
+    
+    def start_freezing_ability(self):
+        self.is_freezing = True
+        self.collected_coolers -= 4
+    
+    def freezing_step(self, delta_time):
+        self.freeze_state_counter += delta_time
+        if self.freeze_state_counter >= FREEZE_DURATION_SECS:
+            self.is_freezing = False
+            self.freeze_state_counter = 0.0
     
     def start_rewind_ability(self):
         self.is_rewinding = True
@@ -148,8 +173,20 @@ class Game:
                     state = self.level.player.states.pop()
                     self.level.player.load_state(state)
                 
+                if self.level.states:
+                    state = self.level.states.pop()
+                    self.level.background.x = state.background_x
+
+                    if hasattr(state, "door_x"):
+                        self.level.door.x = state.door_x
+                
+                for platform in self.level.platforms:
+                    if platform.states:
+                        state = platform.states.pop()
+                        platform.load_state(state)
+                
                 for npc in self.level.npcs:
-                       if npc.states:
+                    if npc.states:
                         state = npc.states.pop()
                         npc.load_state(state)
                 
