@@ -8,6 +8,7 @@ class Player(Entity):
     
     def __init__(self, window, level, assets_path, left_sprite_image, right_sprite_image):
         super().__init__(window, level)
+        self.sprite = None
         self.setup_sprite(assets_path, left_sprite_image, right_sprite_image)
         self.velocity_x = 0
         self.velocity_y = 0
@@ -15,12 +16,20 @@ class Player(Entity):
         self.direction_y = DOWN #gravidade funfar no inicio
     
     def setup_sprite(self, assets_path, left_sprite_image, right_sprite_image):
+        if self.sprite:
+            curr_x = self.sprite.x
+            curr_y = self.sprite.y
+        else:
+            curr_x = 0
+            curr_y = 0
         self.left_sprite = sprite.Sprite(f"assets/{assets_path}{left_sprite_image}.png")
         self.right_sprite = sprite.Sprite(f"assets/{assets_path}{right_sprite_image}.png")
         if self.direction_x != LEFT:
             self.sprite = self.right_sprite
         else:
             self.sprite = self.left_sprite
+        self.sprite.x = curr_x
+        self.sprite.y = curr_y
     
     def set_direction_x(self, direction_x):
         self.direction_x = direction_x

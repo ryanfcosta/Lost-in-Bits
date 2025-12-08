@@ -1,14 +1,13 @@
 from PPlay import window, sprite
 import player
 from constants import UP, LEFT, RIGHT, DOWN, GRAVITY, STATES_PER_SECOND, REWIND_DURATION_SECS
-import main_menu
+import main_menu, characters_menu
 
 TIME_PER_SAVE = 1.0 / STATES_PER_SECOND
 TIME_PER_STATE = 1.0 / (STATES_PER_SECOND * 2)
 
 class Game:
-    #menu = "main_menu"
-    menu = "game"
+    menu = "main_menu"
     up_move_key = "W"
     left_move_key = "A"
     right_move_key = "D"
@@ -17,8 +16,12 @@ class Game:
     def __init__(self, window):
         self.window = window
         self.keyboard = window.get_keyboard()
+        self.mouse = window.get_mouse()
         self.level = None
         self.main_menu = main_menu.MainMenu(window, "menu/", self)
+        self.characters_menu = characters_menu.CharactersMenu(window, "menu/", self)
+        self.mouse_current_state = None
+        self.mouse_previous_state = None
         
         self.collected_cartridges = 0
         
@@ -26,6 +29,9 @@ class Game:
         self.current_rewind_states = 0
         self.save_state_counter = 0.0
         self.rewind_state_counter = 0.0
+    
+    def reload_player(self):
+        self.level.player.setup_sprite("", f"{self.char_name}_left", f"{self.char_name}_right")
     
     def setup_level(self):
         self.level.load_level()
@@ -51,12 +57,17 @@ class Game:
         return None
     
     def game_loop(self):
+        self.mouse_current_state = self.mouse.is_button_pressed(1)
+        mouse_clicked = self.mouse_current_state and not self.mouse_previous_state
         if self.menu == "main_menu":
-            self.main_menu.load_menu()
+            self.main_menu.load_menu(self.mouse, mouse_clicked)
+        elif self.menu == "characters_menu":
+            self.characters_menu.load_menu(self.mouse, mouse_clicked)
         elif self.menu == "game":
             self.level_loop()
         
         self.window.update()
+        self.mouse_previous_state = self.mouse_current_state
     
     def level_loop(self):
         delta_time = self.window.delta_time()

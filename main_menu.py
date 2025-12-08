@@ -4,6 +4,7 @@ class MainMenu:
     def __init__(self, window, assets_path, game):
         self.window = window
         self.assets_path = assets_path
+        self.game = game
         self.new_game_btn = self.setup_button_sprite("new_game")
         if game.has_game_saved():
             self.continue_btn = self.setup_button_sprite("continue")
@@ -22,12 +23,20 @@ class MainMenu:
         self.options_btn.set_position(btn_x, 3 * btn_spacing + 2 * btn_height)
         self.quit_btn.set_position(btn_x, 4 * btn_spacing + 3 * btn_height)
     
-    def load_menu(self):
+    def load_menu(self, mouse, mouse_clicked):
         self.window.set_background_color([255, 255, 255])
         self.new_game_btn.draw()
         self.continue_btn.draw()
         self.options_btn.draw()
         self.quit_btn.draw()
+
+        if mouse_clicked:
+            if mouse.is_over_object(self.new_game_btn):
+                self.game.menu = "game"
+            elif mouse.is_over_object(self.options_btn):
+                self.game.menu = "characters_menu"
+            elif mouse.is_over_object(self.quit_btn):
+                exit()
     
     def setup_button_sprite(self, asset):
         return sprite.Sprite(f"assets/{self.assets_path}{asset}.png")
