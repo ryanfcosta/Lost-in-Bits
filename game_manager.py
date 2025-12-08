@@ -12,6 +12,7 @@ class Game:
     up_move_key = "W"
     left_move_key = "A"
     right_move_key = "D"
+    char_name = "josh"
 
     def __init__(self, window):
         self.window = window
@@ -29,7 +30,7 @@ class Game:
     def setup_level(self):
         self.level.load_level()
         
-        self.level.player = player.Player(self.window, self.level, "", "josh_left", "josh_right")
+        self.level.player = player.Player(self.window, self.level, "", f"{self.char_name}_left", f"{self.char_name}_right")
         
         if hasattr(self.level, 'set_player_start_position'):
             self.level.set_player_start_position()
