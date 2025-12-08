@@ -17,8 +17,11 @@ class Game:
         
         self.level.player = player.Player(self.window, self.level, "", "josh_left", "josh_right")
         
-        self.level.player.sprite.x = self.window.width / 10
-        self.level.player.sprite.y = self.level.floor_y - self.level.player.sprite.height
+        if hasattr(self.level, 'set_player_start_position'):
+            self.level.set_player_start_position()
+        else:
+            self.level.player.sprite.x = self.window.width / 10
+            self.level.player.sprite.y = self.level.floor_y - self.level.player.sprite.height
     
     def get_player_input_direction_x(self, keyboard):
         if keyboard.key_pressed(self.left_move_key) and not keyboard.key_pressed(self.right_move_key):
