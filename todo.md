@@ -1,4 +1,4 @@
 1. Menu(vasco) -> implementar escolha de personagem
-2. Fase pac-man (Ryan) 
-3. Rewind (Vasco)
-4. Consertar Bullet (Ryan)
+2. Posicionar ghosts (Ryan) 
+3. Fase Sonic (Ryan)
+5. Fase Street Fighter
