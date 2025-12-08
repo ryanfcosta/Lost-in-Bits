@@ -6,7 +6,6 @@ class Platform:
         self.level = level
     
     def set_platform(self, x,y, n, assets_path, sprite_image):
-        print("AJSDOAODJAPASSEI AQUI")
         self.blocks = [None] * n
         for i in range(n):
             self.blocks[i] = sprite.Sprite(f"assets/{assets_path}{sprite_image}.png")
