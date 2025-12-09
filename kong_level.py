@@ -18,7 +18,6 @@ class BlackBackground:
         screen = pygame.display.get_surface()
         pygame.draw.rect(screen, (0, 0, 0), (0, 0, screen.get_width(), screen.get_height()))
 
-# --- SPAWNER ---
 class BarrelSpawner(Entity):
     def __init__(self, window, level, x, y, interval):
         super().__init__(window, level)
@@ -43,8 +42,8 @@ class BarrelSpawner(Entity):
         pass 
 
 class KongLevel(AbstractLevel):
-    level_name = "Kong's Tower"
-    level_path = "level_2/" 
+    level_name = "Monkey King"
+    level_path = "level_4/" 
     sprite_name = "floor_brick"
     
     def __init__(self, game, assets_path, background_image):
@@ -114,7 +113,7 @@ class KongLevel(AbstractLevel):
         self.door.x = w - (8 * blk)
         self.door.y = top_y - self.door.height
         
-        self.kong.x = self.door.x + self.door.width + 80
+        self.kong.x = self.door.x + self.door.width
         self.kong.y = top_y - self.kong.height
         
         spawner1 = BarrelSpawner(self.window, self, self.kong.x, self.kong.y + 50, interval=2.0)
