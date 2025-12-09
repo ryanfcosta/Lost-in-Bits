@@ -30,6 +30,7 @@ class PacmanLevel(AbstractLevel):
         self.floor_relative_height = PacmanLevel.floor_relative_height
         self.floor_y = game.window.height * self.floor_relative_height
         self.background = BlackBackground(self.window.width, self.window.height)
+        self.title_color = (255, 255, 255)
 
         total_states = STATES_PER_SECOND * REWIND_DURATION_SECS
         self.states = deque(maxlen=total_states)
