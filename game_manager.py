@@ -101,6 +101,8 @@ class Game:
             platform.draw()
         
         self.level.door.draw()
+        if hasattr(self.level, 'kong') and getattr(self.level, 'kong') is not None:
+            self.level.kong.draw()
         
         self.rewind_ability_box.draw()
         self.freeze_ability_box.draw()

@@ -119,8 +119,8 @@ class KongLevel(AbstractLevel):
         self.door.x = w - (2 * blk)
         self.door.y = top_y - self.door.height
         
-        self.kong.x = self.door.x + self.door.width
-        self.kong.y = top_y - self.door.height
+        self.kong.x = self.door.x - self.door.width + 120
+        self.kong.y = top_y - self.door.height +45
         
         spawner1 = BarrelSpawner(self.window, self, self.kong.x, 0, interval=1.0)
         self.npcs.append(spawner1)
@@ -128,8 +128,8 @@ class KongLevel(AbstractLevel):
         spawner2 = BarrelSpawner(self.window, self, w/2, 0, interval=2.0)
         self.npcs.append(spawner2)
     
-        spawner2 = BarrelSpawner(self.window, self, 150, 0, interval=2.0)
-        self.npcs.append(spawner2)
+        spawner3 = BarrelSpawner(self.window, self, self.kong.y, 0, interval=2.0)
+        self.npcs.append(spawner3)
 
     def create_platform(self, x, y, width_blocks):
         p = game_platform.Platform(self.window, self)
