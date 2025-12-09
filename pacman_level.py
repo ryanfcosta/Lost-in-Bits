@@ -211,6 +211,7 @@ class PacmanLevel(AbstractLevel):
 
         for npc in self.npcs:
             if self.game.level.player.sprite.collided(npc.sprite):
+                self.game.player_death()
                 self.load_level() 
                 self.set_player_start_position()
                 break

@@ -215,5 +215,6 @@ class KongLevel(AbstractLevel):
                                    npc.sprite.width, npc.sprite.height)
             
             if hitbox.colliderect(npc_rect):
+                self.game.player_death()
                 self.game.setup_level()
                 break
