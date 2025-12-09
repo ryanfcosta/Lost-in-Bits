@@ -1,5 +1,5 @@
 from PPlay import window
-import game_manager, plumber_level, pacman_level,scaled_window, sonic_level, kong_level
+import game_manager, plumber_level,scaled_window
 
 window = scaled_window.ScaledWindow(1920, 1080)
 

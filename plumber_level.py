@@ -51,7 +51,7 @@ class PlumberLevel(AbstractLevel):
         self.platforms.append(plataforma_3)
 
         plataforma_4 = game_platform.Platform(self.window, self)
-        plataforma_4.set_platform(1040, 650, 1, self.level_path, self.sprite_name) # Bloco 'escondido'
+        plataforma_4.set_platform(1040, 650, 1, self.level_path, self.sprite_name) 
         self.platforms.append(plataforma_4)
 
         plataforma_5 = game_platform.Platform(self.window, self)

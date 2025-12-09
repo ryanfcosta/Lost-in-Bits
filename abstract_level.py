@@ -8,7 +8,7 @@ class AbstractLevel:
         self.window = game.window
         self.assets_path = assets_path
         self.background_image = background_image
-        self.background = sprite.Sprite(f"assets/{assets_path}/{background_image}.png")
+        self.background = sprite.Sprite(f"assets/{assets_path}{background_image}.png")        
         self.floor_y = game.window.height * floor_relative_height
         self.door = None
 

@@ -129,7 +129,7 @@ class PacmanLevel(AbstractLevel):
 
 
         # feito mais embaixo
-        bot_y = 893
+        bot_y = 895
         p_bot_long = game_platform.Platform(self.window, self)
         p_bot_long.set_platform(center_x - (12*blk), bot_y, 24, self.level_path, self.sprite_name)
         self.platforms.append(p_bot_long)
