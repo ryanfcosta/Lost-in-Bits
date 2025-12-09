@@ -8,8 +8,6 @@ class Bullet(Entity):
         self.direction_x = direction_x
         self.alive = True
         self.setup_sprite(assets_path, sprite_image)
-        #limite pela direita é 0
-        self.x_limit = window.width
         self.sprite.x = pos_x * window.width
         self.sprite.y = level.floor_y - self.sprite.height - 115
     
