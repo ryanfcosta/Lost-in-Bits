@@ -18,13 +18,14 @@ class BlackBackground:
         screen = pygame.display.get_surface()
         pygame.draw.rect(screen, (0, 0, 0), (0, 0, screen.get_width(), screen.get_height()))
 
+#spawner de barril
 class BarrelSpawner(Entity):
     def __init__(self, window, level, x, y, interval):
         super().__init__(window, level)
         self.x = x
         self.y = y
         self.timer = 0
-        self.interval = interval
+        self.interval = interval 
         self.sprite = Sprite("assets/level_4/barrel.png") 
         self.sprite.x = -1000
 
@@ -50,8 +51,10 @@ class KongLevel(AbstractLevel):
         self.game = game
         self.window = game.window
         self.assets_path = assets_path
+        
         self.floor_y = game.window.height - 60
         self.background = BlackBackground(self.window.width, self.window.height)
+        
         total_states = STATES_PER_SECOND * REWIND_DURATION_SECS
         self.states = deque(maxlen=total_states)
 
@@ -64,35 +67,37 @@ class KongLevel(AbstractLevel):
         h = self.window.height
         blk = 60 
         
-        step_normal = 22
-        step_steep = 40  
+        step_normal = 22 
+        step_steep = 60
         
+        # floor
         p_floor = game_platform.Platform(self.window, self)
         p_floor.set_platform(0, h - blk, 32, self.level_path, self.sprite_name)
         self.platforms.append(p_floor)
 
+        # primeira escada
         start_x_1 = w - (2 * blk)
         start_y_1 = h - (2 * blk) 
-        
         steps_1 = 13 
-        
         current_x = start_x_1
         current_y = start_y_1
         
         for i in range(steps_1):
             self.create_platform(current_x, current_y, 2)
             current_x -= (2 * blk)
-            current_y -= step_normal
+            current_y -= step_normal 
 
+        # conexao
         end_x_1 = current_x
         end_y_1 = current_y + step_normal
         self.create_platform(end_x_1, end_y_1, 2)
 
         gap_size = 2.5 * blk 
 
+        # segunda
         start_x_2 = end_x_1 + gap_size
         
-        start_y_2 = end_y_1 - 20 
+        start_y_2 = end_y_1 - 120 
         
         steps_2 = 9 
         
@@ -101,25 +106,25 @@ class KongLevel(AbstractLevel):
         
         for i in range(steps_2):
             self.create_platform(current_x_2, current_y_2, 2)
-            current_x_2 += (2 * blk)
+            current_x_2 += (2 * blk) 
             current_y_2 -= step_steep 
 
-        top_y = current_y_2 + step_steep
-        self.create_platform(w - (16 * blk), top_y, 16) 
-
+        #final
+        top_y = current_y_2 +  blk
+        self.create_platform(w - (7.5 * blk), top_y, 10) 
         self.door = Sprite("assets/level_1/door.png")
         self.kong = Sprite("assets/level_4/kong.png")
         
-        self.door.x = w - (8 * blk)
+        self.door.x = w - (2 * blk)
         self.door.y = top_y - self.door.height
         
         self.kong.x = self.door.x + self.door.width
         self.kong.y = top_y - self.kong.height
         
-        spawner1 = BarrelSpawner(self.window, self, self.kong.x, self.kong.y + 50, interval=2.0)
+        spawner1 = BarrelSpawner(self.window, self, self.kong.x, self.kong.y + 50, interval=1.0)
         self.npcs.append(spawner1)
         
-        spawner2 = BarrelSpawner(self.window, self, w/2, 0, interval=3.0)
+        spawner2 = BarrelSpawner(self.window, self, w/2, 0, interval=2.0)
         self.npcs.append(spawner2)
 
     def create_platform(self, x, y, width_blocks):
@@ -129,11 +134,11 @@ class KongLevel(AbstractLevel):
 
     def draw(self, window):
         self.background.draw()
-        for platform in self.platforms:
+        for platform in self.platforms: 
             platform.draw()
-        self.door.draw()
+        self.door.draw() 
         self.kong.draw()
-        for npc in self.npcs:
+        for npc in self.npcs: 
             npc.draw()
 
     def set_player_start_position(self):
@@ -145,10 +150,11 @@ class KongLevel(AbstractLevel):
         
         if player.sprite.collided(self.door):
             print("Venceu o Kong!")
-            self.game.setup_level()
+            self.game.setup_level() 
 
         player_rect = pygame.Rect(player.sprite.x, player.sprite.y, 
                                   player.sprite.width, player.sprite.height)
+        
         hitbox = player_rect.inflate(-20, -20) 
 
         for npc in self.npcs:
