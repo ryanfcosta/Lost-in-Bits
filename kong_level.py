@@ -120,12 +120,15 @@ class KongLevel(AbstractLevel):
         self.door.y = top_y - self.door.height
         
         self.kong.x = self.door.x + self.door.width
-        self.kong.y = top_y - self.kong.height
+        self.kong.y = top_y - self.door.height
         
-        spawner1 = BarrelSpawner(self.window, self, self.kong.x, self.kong.y + 50, interval=1.0)
+        spawner1 = BarrelSpawner(self.window, self, self.kong.x, 0, interval=1.0)
         self.npcs.append(spawner1)
         
         spawner2 = BarrelSpawner(self.window, self, w/2, 0, interval=2.0)
+        self.npcs.append(spawner2)
+    
+        spawner2 = BarrelSpawner(self.window, self, 150, 0, interval=2.0)
         self.npcs.append(spawner2)
 
         cartridge_sprite = Sprite("assets/cartridge.png")
@@ -210,6 +213,5 @@ class KongLevel(AbstractLevel):
                                    npc.sprite.width, npc.sprite.height)
             
             if hitbox.colliderect(npc_rect):
-                print("Esmagado por um barril!")
                 self.game.setup_level()
                 break
