@@ -1,4 +1,4 @@
-from PPlay import window, sprite
+from PPlay import window, sprite, gameimage
 import player
 from constants import UP, LEFT, RIGHT, DOWN, GRAVITY, STATES_PER_SECOND, REWIND_DURATION_SECS, FREEZE_DURATION_SECS
 import main_menu, characters_menu
@@ -22,6 +22,13 @@ class Game:
         self.characters_menu = characters_menu.CharactersMenu(window, "menu/", self)
         self.mouse_current_state = None
         self.mouse_previous_state = None
+
+        self.rewind_ability_box = gameimage.GameImage("assets/rewind_ability_box.png")
+        self.rewind_ability_box.x = self.window.width * 0.025
+        self.rewind_ability_box.y = self.window.height * 0.025
+        self.freeze_ability_box = gameimage.GameImage("assets/freeze_ability_box.png")
+        self.freeze_ability_box.x = self.rewind_ability_box.x + self.rewind_ability_box.width + 40
+        self.freeze_ability_box.y = self.rewind_ability_box.y
         
         self.collected_cartridges = 0
         self.collected_coolers = 0
@@ -90,7 +97,14 @@ class Game:
             platform.draw()
         
         self.level.door.draw()
-        self.window.draw_text(self.level.level_name, self.window.width - 350, 20, size=30, color=(0, 0, 0), font_name="Arial", bold=True)
+        
+        self.rewind_ability_box.draw()
+        self.freeze_ability_box.draw()
+        self.window.draw_text("Rewind - X", self.rewind_ability_box.x + 45, self.rewind_ability_box.y + 18, size=30, color=(255, 255, 255), font_name="Comic Sans MS")
+        self.window.draw_text(f"{(self.collected_cartridges / 4):.0%}", self.rewind_ability_box.x + 85, self.rewind_ability_box.y + 53, size=30, color=(255, 255, 255), font_name="Comic Sans MS")
+        self.window.draw_text("Congelar - C", self.freeze_ability_box.x + 35, self.freeze_ability_box.y + 18, size=30, color=(255, 255, 255), font_name="Comic Sans MS")
+        self.window.draw_text(f"{(self.collected_coolers / 4):.0%}", self.freeze_ability_box.x + 85, self.freeze_ability_box.y + 53, size=30, color=(255, 255, 255), font_name="Comic Sans MS")
+        self.window.draw_text(self.level.level_name, self.window.width - 350, 20, size=30, color=(0, 0, 0), font_name="Comic Sans MS", bold=True)
 
         if self.is_freezing:
             self.freezing_effect.draw()
@@ -108,7 +122,7 @@ class Game:
         if self.keyboard.key_pressed("X") and self.collected_cartridges >= 4 and not self.is_freezing:
             self.start_rewind_ability()
         
-        if self.keyboard.key_pressed("C") and self.collected_coolers >= 4 and not self.is_rewinding:
+        if self.keyboard.key_pressed("C") and self.collected_coolers >= 4 and not self.is_rewinding and not self.is_freezing:
             self.start_freezing_ability()
         
         self.save_states(delta_time)
