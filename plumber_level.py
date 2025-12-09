@@ -204,10 +204,12 @@ class PlumberLevel(AbstractLevel):
                         npc.alive = False
                     elif (player_bottom_y > npc_top_y) and (player_top_y < npc_bottom_y) and npc.alive:
                         self.game.level = PlumberLevel(self.game, self.assets_path, self.background_image)
+                        self.game.player_death()
                         self.game.setup_level()
             elif isinstance(npc, Bullet):
                 if self.player.sprite.collided(npc.sprite):
                     self.game.level = PlumberLevel(self.game, self.assets_path, self.background_image)
+                    self.game.player_death()
                     self.game.setup_level()
         
         if self.game.level.player.sprite.collided(self.door):

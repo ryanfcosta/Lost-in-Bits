@@ -46,6 +46,11 @@ class Game:
         self.freeze_state_counter = 0.0
         self.freezing_effect = sprite.Sprite("assets/freezing_effect.png")
     
+    def player_death(self):
+        self.death_sound.play()
+        self.collected_cartridges = 0
+        self.collected_coolers = 0
+    
     def reload_player(self):
         self.level.player.setup_sprite("", f"{self.char_name}_left", f"{self.char_name}_right")
     
