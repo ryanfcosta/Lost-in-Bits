@@ -17,6 +17,7 @@ class PlumberLevel(AbstractLevel):
         
     def __init__(self, game, assets_path, background_image):
         super().__init__(game, assets_path, background_image, PlumberLevel.floor_relative_height)
+        self.title_color = (0, 0, 0)
     
     def load_level(self):
         super().load_level()

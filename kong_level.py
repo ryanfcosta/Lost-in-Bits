@@ -57,6 +57,7 @@ class KongLevel(AbstractLevel):
         
         total_states = STATES_PER_SECOND * REWIND_DURATION_SECS
         self.states = deque(maxlen=total_states)
+        self.title_color = (255, 255, 255)
 
     def load_level(self):
         self.npcs = []

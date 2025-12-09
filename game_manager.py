@@ -108,7 +108,7 @@ class Game:
         self.window.draw_text(f"{(self.collected_cartridges / 4):.0%}", self.rewind_ability_box.x + 85, self.rewind_ability_box.y + 53, size=30, color=(255, 255, 255), font_name="Comic Sans MS")
         self.window.draw_text("Congelar - C", self.freeze_ability_box.x + 35, self.freeze_ability_box.y + 18, size=30, color=(255, 255, 255), font_name="Comic Sans MS")
         self.window.draw_text(f"{(self.collected_coolers / 4):.0%}", self.freeze_ability_box.x + 85, self.freeze_ability_box.y + 53, size=30, color=(255, 255, 255), font_name="Comic Sans MS")
-        self.window.draw_text(self.level.level_name, self.window.width - 350, 20, size=30, color=(0, 0, 0), font_name="Comic Sans MS", bold=True)
+        self.window.draw_text(self.level.level_name, self.window.width - 350, 20, size=30, color=self.level.title_color, font_name="Comic Sans MS", bold=True)
 
         if self.is_freezing:
             self.freezing_effect.draw()

@@ -42,6 +42,8 @@ class SonicLevel(AbstractLevel):
         self.max_sonic_speed = 0.85 
         self.acceleration = 0.0005 
 
+        self.title_color = (0, 0, 0)
+
     def load_level(self):
         self.npcs = []
         self.platforms = []
