@@ -4,7 +4,8 @@ import pygame
 from PPlay.sprite import Sprite
 from collections import deque
 from constants import STATES_PER_SECOND, REWIND_DURATION_SECS
-from goomba import Goomba 
+from goomba import Goomba
+import kong_level
 
 class CyanBackground:
     def __init__(self, width, height):
@@ -198,8 +199,9 @@ class SonicLevel(AbstractLevel):
                 player.walking_vel_x = self.base_speed
 
         if player.sprite.collided(self.door):
-            print("Venceu a Green Hills!")
             player.walking_vel_x = self.base_speed
+            self.game.level = kong_level.KongLevel(self.game, "level_4", "ignored")
+            self.game.setup_level()
 
         for npc in self.npcs:
             npc.sprite.x += self.background.x

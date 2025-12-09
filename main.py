@@ -8,7 +8,7 @@ if __name__ == "__main__":
     pacman_level = pacman_level.PacmanLevel(game, "level_2/", None)
     sonic_level = sonic_level.SonicLevel(game, "level_3", "ignored")
     kong_level = kong_level.KongLevel(game, "level_4", "ignored")
-    plumber_level = plumber_level.PlumberLevel.create_level_instance(game, "level_1/", "background")
+    plumber_level = plumber_level.PlumberLevel(game, "level_1/", "background")
     game.level = kong_level
     #game.level = plumber_level
     game.setup_level()

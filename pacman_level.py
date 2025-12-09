@@ -5,6 +5,7 @@ from PPlay.sprite import Sprite
 from ghost import Ghost 
 from collections import deque 
 from constants import STATES_PER_SECOND, REWIND_DURATION_SECS 
+import sonic_level
 
 class BlackBackground:
     def __init__(self, width, height):
@@ -205,8 +206,8 @@ class PacmanLevel(AbstractLevel):
 
     def handle_player_collisions(self):
         if self.game.level.player.sprite.collided(self.door):
-            print("Venceu a fase Pacman!")
-            #level_3
+            self.game.level = sonic_level.SonicLevel(self.game, "level_3", "ignored")
+            self.game.setup_level()
 
         for npc in self.npcs:
             if self.game.level.player.sprite.collided(npc.sprite):

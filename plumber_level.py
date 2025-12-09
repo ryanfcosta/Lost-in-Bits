@@ -150,24 +150,6 @@ class PlumberLevel(AbstractLevel):
         plataforma_28.set_platform(5440, h_stair, 1, self.level_path, self.sprite_name)
         self.platforms.append(plataforma_28)
         self.npcs.append(bullet_1)
-
-        """
-        self.cartridges = []
-        cartridge_positions = [1040, 1720, 2400, 3960, 5050]
-        for x in cartridge_positions:
-            cartridge = sprite.Sprite("assets/cartridge.png")
-            cartridge.x = x
-            cartridge.y = self.floor_y - cartridge.height
-            self.cartridges.append(cartridge)
-
-        self.coolers = []
-        cooler_positions = [500, 1960, 3000, 4200, 5500]
-        for x in cooler_positions:
-            cooler = sprite.Sprite("assets/frozen.png")
-            cooler.x = x
-            cooler.y = self.floor_y - 60 - cooler.height
-            self.coolers.append(cooler)
-        """
         
         cartridge_sprite = sprite.Sprite("assets/cartridge.png")
         cartridge_h = cartridge_sprite.height
@@ -221,17 +203,13 @@ class PlumberLevel(AbstractLevel):
                     if player_is_stomping_goomba:
                         npc.alive = False
                     elif (player_bottom_y > npc_top_y) and (player_top_y < npc_bottom_y) and npc.alive:
-                        self.game.level = PlumberLevel.create_level_instance(self.game, self.assets_path, self.background_image)
+                        self.game.level = PlumberLevel(self.game, self.assets_path, self.background_image)
                         self.game.setup_level()
             elif isinstance(npc, Bullet):
                 if self.player.sprite.collided(npc.sprite):
-                    self.game.level = PlumberLevel.create_level_instance(self.game, self.assets_path, self.background_image)
+                    self.game.level = PlumberLevel(self.game, self.assets_path, self.background_image)
                     self.game.setup_level()
         
-        if (self.player.sprite.x > self.door.x) and ((self.player.sprite.x + self.player.sprite.width) > (self.door.x + self.door.width)) and (self.player.sprite.y > self.door.y):
+        if self.game.level.player.sprite.collided(self.door):
             self.game.level = PacmanLevel(self.game, "level_2/", None)
             self.game.setup_level()
-                
-                
-    def create_level_instance(game, assets_path, background_image):
-        return PlumberLevel(game, assets_path, background_image)

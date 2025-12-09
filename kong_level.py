@@ -5,7 +5,8 @@ from PPlay.sprite import Sprite
 from collections import deque
 from constants import STATES_PER_SECOND, REWIND_DURATION_SECS
 from entity import Entity
-from barrel import Barrel 
+from barrel import Barrel
+import plumber_level
 
 class BlackBackground:
     def __init__(self, width, height):
@@ -198,7 +199,8 @@ class KongLevel(AbstractLevel):
         player = self.game.level.player
         
         if player.sprite.collided(self.door):
-            print("Venceu o Kong!")
+            self.game.menu = "main_menu"
+            self.game.level = plumber_level.PlumberLevel(self.game, "level_1/", "background")
             self.game.setup_level() 
 
         player_rect = pygame.Rect(player.sprite.x, player.sprite.y, 
