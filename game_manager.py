@@ -102,7 +102,16 @@ class Game:
         
         self.level.door.draw()
         if hasattr(self.level, 'kong') and getattr(self.level, 'kong') is not None:
-            self.level.kong.draw()
+                    self.level.kong.draw()
+                    
+        for cartridge in self.level.cartridges:
+            cartridge.x += self.level.background.x
+            cartridge.draw()
+            cartridge.x -= self.level.background.x
+        for cooler in self.level.coolers:
+            cooler.x += self.level.background.x
+            cooler.draw()
+            cooler.x -= self.level.background.x
         
         self.rewind_ability_box.draw()
         self.freeze_ability_box.draw()
@@ -137,6 +146,21 @@ class Game:
         self.level.player.set_direction_x(player_input_direction_x)
         player_input_direction_y = self.get_player_input_direction_y(self.keyboard)
         self.level.player.set_direction_y(player_input_direction_y)
+
+        for cartridge in self.level.cartridges:
+            cartridge.x += self.level.background.x
+            if self.level.player.sprite.collided(cartridge):
+                if self.collected_cartridges < 8:
+                    self.collected_cartridges += 1
+                self.level.cartridges.remove(cartridge)
+            cartridge.x -= self.level.background.x
+        for cooler in self.level.coolers:
+            cooler.x += self.level.background.x
+            if self.level.player.sprite.collided(cooler):
+                if self.collected_coolers < 8:
+                    self.collected_coolers += 1
+                self.level.coolers.remove(cooler)
+            cooler.x -= self.level.background.x
         
         self.level.player.move(delta_time)
         if not self.is_freezing:
@@ -201,7 +225,7 @@ class Game:
 
                     if hasattr(state, "door_x"):
                         self.level.door.x = state.door_x
-                
+
                 for platform in self.level.platforms:
                     if platform.states:
                         state = platform.states.pop()

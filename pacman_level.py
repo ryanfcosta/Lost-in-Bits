@@ -5,6 +5,7 @@ from PPlay.sprite import Sprite
 from ghost import Ghost 
 from collections import deque 
 from constants import STATES_PER_SECOND, REWIND_DURATION_SECS 
+import sonic_level
 
 class BlackBackground:
     def __init__(self, width, height):
@@ -165,14 +166,48 @@ class PacmanLevel(AbstractLevel):
         self.door.x = (w / 2) - (self.door.width / 2)
         self.door.y = 60 
 
+        cartridge_sprite = Sprite("assets/cartridge.png")
+        cartridge_h = cartridge_sprite.height
+        cartridge_positions = [
+            (center_x - (14 * blk) + 30, 550 - cartridge_h), 
+            (center_x, 500 - cartridge_h),
+            (center_x + (2*blk) + 90, 200 - cartridge_h),
+            (center_x - blk, 60 + self.door.height + 10),
+            (center_x + (9 * blk) + 30, 440 - cartridge_h)
+        ]
+        
+        self.cartridges = []
+        for x, y in cartridge_positions:
+            cartridge = Sprite("assets/cartridge.png")
+            cartridge.x = x
+            cartridge.y = y
+            self.cartridges.append(cartridge)
+            
+        cooler_sprite = Sprite("assets/frozen.png")
+        cooler_h = cooler_sprite.height
+        cooler_positions = [
+            (blk * 2, h - blk - cooler_h), 
+            (blk * 5 + 60, 650 - cooler_h),
+            (w - (blk * 8) + 60, 650 - cooler_h),
+            (center_x - (8*blk) + 60, 500 - cooler_h),
+            (center_x + (10 * blk), 893 - cooler_h)
+        ]
+        
+        self.coolers = []
+        for x, y in cooler_positions:
+            cooler = Sprite("assets/frozen.png")
+            cooler.x = x
+            cooler.y = y
+            self.coolers.append(cooler)
+
     def set_player_start_position(self):
         self.game.level.player.sprite.x = self.window.width - 200
         self.game.level.player.sprite.y = self.window.height - 150
 
     def handle_player_collisions(self):
         if self.game.level.player.sprite.collided(self.door):
-            print("Venceu a fase Pacman!")
-            #level_3
+            self.game.level = sonic_level.SonicLevel(self.game, "level_3", "ignored")
+            self.game.setup_level()
 
         for npc in self.npcs:
             if self.game.level.player.sprite.collided(npc.sprite):

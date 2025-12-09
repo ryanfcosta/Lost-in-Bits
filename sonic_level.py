@@ -4,7 +4,8 @@ import pygame
 from PPlay.sprite import Sprite
 from collections import deque
 from constants import STATES_PER_SECOND, REWIND_DURATION_SECS
-from goomba import Goomba 
+from goomba import Goomba
+import kong_level
 
 class CyanBackground:
     def __init__(self, width, height):
@@ -108,6 +109,38 @@ class SonicLevel(AbstractLevel):
         self.door.x = (self.map_blocks_width - 5) * blk 
         self.door.y = h - blk - self.door.height
 
+        cartridge_sprite = Sprite("assets/cartridge.png")
+        cartridge_h = cartridge_sprite.height
+        cartridge_positions = [
+            (15 * blk, h - (3 * blk) - cartridge_h),
+            (22 * blk, h - (4 * blk) - cartridge_h),
+            ((start_loop_blk + 7) * blk, h - (5 * blk) - cartridge_h),
+            (113 * blk, h - (2.5 * blk) - cartridge_h),
+            (190 * blk, h - (4 * blk) - cartridge_h)
+        ]
+        self.cartridges = []  
+        for x, y in cartridge_positions:
+            cartridge = Sprite("assets/cartridge.png")
+            cartridge.x = x
+            cartridge.y = y
+            self.cartridges.append(cartridge)
+
+        cooler_sprite = Sprite("assets/frozen.png")
+        cooler_h = cooler_sprite.height
+        cooler_positions = [
+            (5 * blk, h - blk - cooler_h),
+            (41 * blk, h - (2 * blk) - cooler_h),
+            (70 * blk, h - blk - cooler_h),
+            (138 * blk, h - (2.5 * blk) - cooler_h),
+            (185 * blk, h - (4 * blk) - cooler_h)
+        ]
+        self.coolers = []
+        for x, y in cooler_positions:
+            cooler = Sprite("assets/frozen.png")
+            cooler.x = x
+            cooler.y = y
+            self.coolers.append(cooler)
+
     def draw(self, window):
         self.background.draw()
         for platform in self.platforms:
@@ -166,8 +199,9 @@ class SonicLevel(AbstractLevel):
                 player.walking_vel_x = self.base_speed
 
         if player.sprite.collided(self.door):
-            print("Venceu a Green Hills!")
             player.walking_vel_x = self.base_speed
+            self.game.level = kong_level.KongLevel(self.game, "level_4", "ignored")
+            self.game.setup_level()
 
         for npc in self.npcs:
             npc.sprite.x += self.background.x
