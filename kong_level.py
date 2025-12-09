@@ -128,6 +128,51 @@ class KongLevel(AbstractLevel):
         spawner2 = BarrelSpawner(self.window, self, w/2, 0, interval=2.0)
         self.npcs.append(spawner2)
 
+        cartridge_sprite = Sprite("assets/cartridge.png")
+        cartridge_h = cartridge_sprite.height
+        cart_1_x = blk * 2
+        cart_1_y = h - blk - cartridge_h
+        cart_2_i = 3
+        cart_2_x = start_x_1 - (cart_2_i * 2 * blk) + blk 
+        cart_2_y = start_y_1 - (cart_2_i * step_normal) - cartridge_h
+        cart_3_x = end_x_1 + blk
+        cart_3_y = end_y_1 + step_normal - cartridge_h - 20
+        cart_5_x = w - (7 * blk) 
+        cart_5_y = top_y - cartridge_h
+        cartridge_positions = [
+            (cart_1_x, cart_1_y), (cart_2_x, cart_2_y), (cart_3_x, cart_3_y), 
+            (cart_5_x, cart_5_y)
+        ]
+        self.cartridges = []
+        for x, y in cartridge_positions:
+            cartridge = Sprite("assets/cartridge.png")
+            cartridge.x = x
+            cartridge.y = y
+            self.cartridges.append(cartridge)
+
+        cooler_sprite = Sprite("assets/frozen.png")
+        cooler_h = cooler_sprite.height
+        cool_1_i = 1 
+        cool_1_x = start_x_1 - (cool_1_i * 2 * blk) + blk 
+        cool_1_y = start_y_1 - (cool_1_i * step_normal) - cooler_h
+        cool_3_x = end_x_1 + gap_size + blk
+        cool_3_y = start_y_2 - cooler_h
+        cool_4_i = 3
+        cool_4_x = start_x_2 + (cool_4_i * 2 * blk) + blk
+        cool_4_y = start_y_2 - (cool_4_i * step_steep) - cooler_h
+        cool_5_x = self.door.x - blk
+        cool_5_y = top_y - cooler_h
+        cooler_positions = [
+            (cool_1_x, cool_1_y), (cool_3_x, cool_3_y), 
+            (cool_4_x, cool_4_y), (cool_5_x, cool_5_y)
+        ]
+        self.coolers = []
+        for x, y in cooler_positions:
+            cooler = Sprite("assets/frozen.png")
+            cooler.x = x
+            cooler.y = y
+            self.coolers.append(cooler)
+
     def create_platform(self, x, y, width_blocks):
         p = game_platform.Platform(self.window, self)
         p.set_platform(x, y, width_blocks, self.level_path, self.sprite_name)
