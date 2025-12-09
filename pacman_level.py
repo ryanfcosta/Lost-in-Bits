@@ -2,6 +2,9 @@ from abstract_level import AbstractLevel
 import game_platform
 import pygame
 from PPlay.sprite import Sprite
+from ghost import Ghost 
+from collections import deque 
+from constants import STATES_PER_SECOND, REWIND_DURATION_SECS 
 
 class BlackBackground:
     def __init__(self, width, height):
@@ -21,13 +24,15 @@ class PacmanLevel(AbstractLevel):
     sprite_name = "floor_brick"
     
     def __init__(self, game, assets_path, background_image):
-        self.states = []
         self.game = game
         self.window = game.window
         self.assets_path = assets_path
         self.floor_relative_height = PacmanLevel.floor_relative_height
         self.floor_y = game.window.height * self.floor_relative_height
         self.background = BlackBackground(self.window.width, self.window.height)
+
+        total_states = STATES_PER_SECOND * REWIND_DURATION_SECS
+        self.states = deque(maxlen=total_states)
 
     def load_level(self):
         self.npcs = []
@@ -58,7 +63,7 @@ class PacmanLevel(AbstractLevel):
         # laterais de cima
         top_y = 200
         p_top_l = game_platform.Platform(self.window, self)
-        p_top_l.set_platform(center_x - (7*blk), top_y, 3, self.level_path, self.sprite_name)
+        p_top_l.set_platform(center_x - (6*blk), top_y, 3, self.level_path, self.sprite_name)
         self.platforms.append(p_top_l)
         p_top_r = game_platform.Platform(self.window, self)
         p_top_r.set_platform(center_x + (2*blk), top_y, 3, self.level_path, self.sprite_name)
@@ -68,11 +73,11 @@ class PacmanLevel(AbstractLevel):
         # BOWL
         bowl_y_base = 500 
         p_bowl_base = game_platform.Platform(self.window, self)
-        p_bowl_base.set_platform(center_x - (7*blk), bowl_y_base, 14, self.level_path, self.sprite_name)
+        p_bowl_base.set_platform(center_x - (8*blk), bowl_y_base, 15, self.level_path, self.sprite_name)
         self.platforms.append(p_bowl_base)
         for i in range(1, 4): 
             p_u_l = game_platform.Platform(self.window, self)
-            p_u_l.set_platform(center_x - (7*blk), bowl_y_base - (i*blk), 1, self.level_path, self.sprite_name)
+            p_u_l.set_platform(center_x - (8*blk), bowl_y_base - (i*blk), 1, self.level_path, self.sprite_name)
             self.platforms.append(p_u_l)      
             p_u_r = game_platform.Platform(self.window, self)
             p_u_r.set_platform(center_x + (6*blk), bowl_y_base - (i*blk), 1, self.level_path, self.sprite_name)
@@ -127,8 +132,35 @@ class PacmanLevel(AbstractLevel):
         p_bot_long.set_platform(center_x - (12*blk), bot_y, 24, self.level_path, self.sprite_name)
         self.platforms.append(p_bot_long)
 
+        # ghost bowl
+        ghost1 = Ghost(self.game, center_x, 462, "assets/level_2/ghost.png")
+        ghost1.speed = 0
+        self.npcs.append(ghost1)
+        
+        ghost1_left = Ghost(self.game, center_x - (2*blk), 462, "assets/level_2/ghost.png")
+        ghost1_left.speed = 0
+        self.npcs.append(ghost1_left)
+        
+        ghost1_right = Ghost(self.game, center_x + (2*blk), 462, "assets/level_2/ghost.png")
+        ghost1_right.speed = 0
+        self.npcs.append(ghost1_right)
 
-        self.door = Sprite("assets/level_1/door.png")
+        # ghost plat direita
+        ghost2 = Ghost(self.game, w - (blk * 8), 712, "assets/level_2/ghost.png")
+        ghost2.speed = 0
+        self.npcs.append(ghost2)
+
+        # ghost plat esquerda
+        ghost3 = Ghost(self.game, blk *  7, 712, "assets/level_2/ghost.png")
+        ghost3.speed = 0 
+        self.npcs.append(ghost3)
+
+        # ghost chaser 
+        ghost_chaser = Ghost(self.game, center_x, 893, "assets/level_2/ghost.png")
+        self.npcs.append(ghost_chaser)
+
+
+        self.door = Sprite("assets/level_2/door.png") 
         self.door.x = (w / 2) - (self.door.width / 2)
         self.door.y = 60 
 
@@ -139,3 +171,10 @@ class PacmanLevel(AbstractLevel):
     def handle_player_collisions(self):
         if self.game.level.player.sprite.collided(self.door):
             print("Venceu a fase Pacman!")
+            #level_3
+
+        for npc in self.npcs:
+            if self.game.level.player.sprite.collided(npc.sprite):
+                self.load_level() 
+                self.set_player_start_position()
+                break
