@@ -1,4 +1,4 @@
-from PPlay import window, sprite, gameimage
+from PPlay import window, sprite, gameimage, sound
 import player
 from constants import UP, LEFT, RIGHT, DOWN, GRAVITY, STATES_PER_SECOND, REWIND_DURATION_SECS, FREEZE_DURATION_SECS
 import main_menu, characters_menu
@@ -23,6 +23,8 @@ class Game:
         self.mouse_current_state = None
         self.mouse_previous_state = None
 
+        self.death_sound = sound.Sound("assets/death_sound.mp3")
+
         self.rewind_ability_box = gameimage.GameImage("assets/rewind_ability_box.png")
         self.rewind_ability_box.x = self.window.width * 0.025
         self.rewind_ability_box.y = self.window.height * 0.025
@@ -33,11 +35,13 @@ class Game:
         self.collected_cartridges = 0
         self.collected_coolers = 0
         
+        self.rewinding_sound = sound.Sound("assets/rewind_sound.mp3")
         self.is_rewinding = False
         self.current_rewind_states = 0
         self.save_state_counter = 0.0
         self.rewind_state_counter = 0.0
 
+        self.freezing_sound = sound.Sound("assets/freeze_sound.mp3")
         self.is_freezing = False
         self.freeze_state_counter = 0.0
         self.freezing_effect = sprite.Sprite("assets/freezing_effect.png")
@@ -114,10 +118,10 @@ class Game:
             self.rewind_step(delta_time)
             return
 
-        if self.keyboard.key_pressed("L"):
+        if self.keyboard.key_pressed("RETURN"):
             self.collected_cartridges += 1
             self.collected_coolers += 1
-            print(f"cart: {self.collected_cartridges}; cool: {self.collected_coolers}")
+            self.freezing_sound = sound.Sound("assets/freeze_za_warudo_sound.mp3")
         
         if self.keyboard.key_pressed("X") and self.collected_cartridges >= 4 and not self.is_freezing:
             self.start_rewind_ability()
@@ -156,6 +160,7 @@ class Game:
     def start_freezing_ability(self):
         self.is_freezing = True
         self.collected_coolers -= 4
+        self.freezing_sound.play()
     
     def freezing_step(self, delta_time):
         self.freeze_state_counter += delta_time
@@ -167,6 +172,7 @@ class Game:
         self.is_rewinding = True
         self.current_rewind_states = len(self.level.player.states)
         self.collected_cartridges -= 4
+        self.rewinding_sound.play()
     
     def rewind_step(self, delta_time):
         if self.current_rewind_states <= 0:
