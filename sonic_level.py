@@ -168,8 +168,12 @@ class SonicLevel(AbstractLevel):
             player.walking_vel_x = self.base_speed
 
         for npc in self.npcs:
+            npc.sprite.x += self.background.x
+
             if player.sprite.collided(npc.sprite):
                 print("Foi pego pelo Motobug!")
                 player.walking_vel_x = self.base_speed 
                 self.game.setup_level() 
                 break
+            
+            npc.sprite.x -= self.background.x
