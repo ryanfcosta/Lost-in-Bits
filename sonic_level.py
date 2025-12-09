@@ -19,7 +19,7 @@ class CyanBackground:
         pygame.draw.rect(screen, (0, 100, 100), (0, 0, screen.get_width(), screen.get_height()))
 
 class SonicLevel(AbstractLevel):
-    level_name = "Green Hills"
+    level_name = "Sounds Speed"
     level_path = "level_3/" 
     sprite_name = "floor_brick"
     

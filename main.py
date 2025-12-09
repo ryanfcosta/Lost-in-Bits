@@ -5,12 +5,8 @@ window = scaled_window.ScaledWindow(1920, 1080)
 
 if __name__ == "__main__":
     game = game_manager.Game(window)
-    pacman_level = pacman_level.PacmanLevel(game, "level_2/", None)
-    sonic_level = sonic_level.SonicLevel(game, "level_3", "ignored")
-    kong_level = kong_level.KongLevel(game, "level_4", "ignored")
     plumber_level = plumber_level.PlumberLevel(game, "level_1/", "background")
-    game.level = kong_level
-    #game.level = plumber_level
+    game.level = plumber_level
     game.setup_level()
 
     while True:
